@@ -21,6 +21,7 @@ ReferenceExample.propTypes = {
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
+    userSettings: state.user.settings,
     scene: state.scene,
     projects: state.project,
     courses: state.courses,
@@ -39,7 +40,8 @@ const mapDispatchToProps = dispatch => ({
     projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
     courseActions: bindActionCreators(Actions.CourseActions, dispatch),
     collectionActions: bindActionCreators(Actions.CollectionActions, dispatch),
-    referenceExampleActions: bindActionCreators(Actions.ReferenceExampleActions, dispatch)
+    referenceExampleActions: bindActionCreators(Actions.ReferenceExampleActions, dispatch),
+    userActions: bindActionCreators(Actions.UserActions, dispatch)
 });
 
 /**

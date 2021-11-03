@@ -9,13 +9,15 @@ import * as layoutTypes from "../../constants/LayoutTypes.js";
 
 import "../../css/ReferencePage.css";
 
-export const ReferenceExample = ({ editor, user, scene, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections }) => (
+export const ReferenceExample = ({ editor, user, scene, userSettings, userActions, referenceExample, referenceExampleActions, editorActions, authActions, projectActions, projects, courseActions, courses, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
             user={user}
+            settings={userSettings}
+            userActions={userActions}
             scene={scene}
             text={editor.text}
             message={editor.message}
@@ -43,7 +45,7 @@ export const ReferenceExample = ({ editor, user, scene, referenceExample, refere
                         <div id="interface" className="col-12 col-md-4">
                             <RefExInfo referenceExample={referenceExample} />
                             <div className='ref-ex-edit'>
-                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} />
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={userSettings}/>
                             </div>
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
