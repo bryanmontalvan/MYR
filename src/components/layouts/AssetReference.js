@@ -5,13 +5,15 @@ import AssetReferencePage from "../reference/AssetReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const AssetReference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
+export const AssetReference = ({ editor, editorActions, user, userSettings, userActions, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
             user={user}
+            settings={userSettings}
+            userActions={userActions}
             scene={scene}
             text={editor.text}
             message={editor.message}
