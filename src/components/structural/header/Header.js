@@ -100,6 +100,7 @@ class Header extends Component {
 
         // Bind to keyboard to listen for shortcuts
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        // document.addEventListener("keydown", this.handleAutoSave.bind(this));
     }
 
     /**
@@ -131,6 +132,29 @@ class Header extends Component {
             }
         }
     }
+
+    // handleAutoSave(e){
+    //     let editor = window.ace.edit("ace-editor");
+    //     let counter = 0;
+    //     editor.on("change", function () {
+    //         if (editor.curOp && editor.curOp.command.name) {
+    //             if (counter === 50) {
+    //                 counter = 0;
+    //                 console.warn(`Auto save, triggered ${counter}`);
+    //                 e.preventDefault();
+    //                 // this.handleSave();
+    //                 // this.handleSaveClose();
+    //             }
+    //             // ------ Issues ---------
+    //             // 1. Each time a user types the save feature will be spammed
+    //             // 2. Can't call save 
+    //         }
+    //         else {
+    //             console.warn("other change");
+    //         }
+    //         counter++;
+    //     });
+    // }
 
     /**
      * Removes listener for real time sync process

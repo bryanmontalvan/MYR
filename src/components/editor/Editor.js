@@ -36,7 +36,6 @@ class Editor extends Component {
             try {
                 let editor = window.ace.edit("ace-editor");
                 text = editor.getSession().getValue();
-
             } catch (err) {
                 console.error(err);
             }
@@ -76,6 +75,7 @@ class Editor extends Component {
                     enableBasicAutocompletion={false}
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
+                    onChange={() => console.log("Pee")}
                 />
                 { browserType() === "desktop" ? <KeyboardShortcut/> : null }
             </div>
