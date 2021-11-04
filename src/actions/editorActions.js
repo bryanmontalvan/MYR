@@ -96,7 +96,7 @@ export function saveScene(newCollectionID = undefined) {
             //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
             text = state.editor.text;
         } 
-        console.log("Soft asset render", text, newCollectionID);
+        console.log("Test", text, newCollectionID);
 
         // if (this.props.user && this.props.user.uid && text) {
         //     this.setState({ spinnerOpen: true });
