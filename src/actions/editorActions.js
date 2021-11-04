@@ -84,6 +84,73 @@ export function fetchScene(id, uid = "anon") {
     };
 }
 
+export function saveScene(newCollectionID = undefined) {
+    return (dispatch, getState) => {  
+        const state = getState();
+        let editor, text;
+        if (!state.scene.settings.viewOnly) { // Map props to new reducer
+            //If in editor mode, gets text directly from editor
+            editor = window.ace.edit("ace-editor");
+            text = editor.getSession().getValue();
+        } else {
+            //Otherwise, gets text from state (should be up to date since it is refreshed on editor unmount) 
+            text = state.editor.text;
+        } 
+        console.log("Soft ass", text, newCollectionID);
+
+        // if (this.props.user && this.props.user.uid && text) {
+        //     this.setState({ spinnerOpen: true });
+        let scene = document.querySelector("a-scene");
+        // Access the scene and screen shot, with perspective view in a lossy jpeg format
+        let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
+
+        //     let newScene = {
+        //         name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
+        //         desc: this.props.scene.desc,
+        //         code: text,
+        //         uid: this.props.user.uid,
+        //         settings: {
+        //             ...this.props.scene.settings,
+        //             collectionID: newCollectionID || this.props.scene.settings.collectionID
+        //         },
+        //         updateTime: Date.now(),
+        //         createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
+        //     };
+
+        //     save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) => {
+        //         if (!projectId) {
+        //             console.error("Could not save the scene");
+        //         }
+
+        //         this.props.actions.updateSavedText(text);
+        //         // If we have a new projectId reload page with it
+        //         if (projectId !== this.props.projectId) {
+        //             this.setState({ spinnerOpen: false });
+        //             window.location.assign(`${window.origin}/scene/${projectId}`);
+        //             this.props.projectActions.asyncUserProj(this.props.user.uid);
+        //         }
+        //         if (!this.state.viewOnly) {
+        //             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+        //         }
+        //         this.setState({ spinnerOpen: false, saveOpen: false });
+        //         this.state.socket.emit("save");
+        //         return true;
+        //     });
+        // } else if (!text) {
+        //     alert("There is no code to save for this scene. Try adding some in the editor!");
+        // } else {
+        //     // TODO: Don't use alert
+        //     alert("We were unable to save your project. Are you currently logged in?");
+        // }
+
+        // if (!this.state.viewOnly) {
+        //     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
+        // }
+        // this.setState({ savedSettings: this.buildSettingsArr() });
+    };
+}
+
+
 /**
  * Sends a signal to the reducer to update the savedText when user try to save or open scene/course
  *
@@ -105,4 +172,5 @@ export default {
     fetchScene,
     addPassword,
     updateSavedText,
+    saveScene
 };

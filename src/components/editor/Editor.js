@@ -4,7 +4,7 @@ import "brace/mode/javascript";
 import "brace/theme/github";
 import "brace/ext/searchbox";
 import "brace/ext/language_tools";
-
+import debounce from "lodash/debounce";
 import customCompleter from "./customCompleter.js";
 import KeyboardShortcut from "./KeyboardShortcut.js";
 import { browserType } from "../../utils/browserType";
@@ -13,6 +13,11 @@ import { browserType } from "../../utils/browserType";
  * Editor is a React Component that creat the Ace Editor in the DOM.
  */
 class Editor extends Component {
+    constructor(props) {
+        super(props);
+        this.throttleHandleChange = debounce(this.throttleHandleChange.bind(this), 5000);
+        this.handleChange = this.handleChange.bind(this);
+    }
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();
@@ -52,6 +57,15 @@ class Editor extends Component {
             "esversion": 6
         }]);
     }
+
+    throttleHandleChange(text) {
+        console.warn(text);
+        this.props.saveScene();
+    }
+
+    handleChange(text) {
+        this.throttleHandleChange(text);
+    }
     
     /**
      * Creates the editor in the DOM
@@ -75,7 +89,7 @@ class Editor extends Component {
                     enableBasicAutocompletion={false}
                     enableLiveAutocompletion={true}
                     onLoad={this.onLoad}
-                    onChange={() => console.log("Pee")}
+                    onChange={this.handleChange}
                 />
                 { browserType() === "desktop" ? <KeyboardShortcut/> : null }
             </div>
