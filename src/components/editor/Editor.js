@@ -60,7 +60,7 @@ class Editor extends Component {
 
     throttleHandleChange(text) {
         console.warn(text);
-        this.props.saveScene();
+        this.props.saveScene(this.props.projectId);
     }
 
     handleChange(text) {

@@ -4,6 +4,8 @@ import * as types from "../constants/ActionTypes";
 
 const sceneRef = "/apiv1/scenes";
 
+import { save, asyncUserProj } from "./projectActions.js";
+// import sockets from "socket.io-client";
 /**
  * Sends a signal to the reducer to render the scene
  *
@@ -84,11 +86,11 @@ export function fetchScene(id, uid = "anon") {
     };
 }
 
-export function saveScene(newCollectionID = undefined) {
+export function saveScene(oldProjectId,newCollectionID = undefined) {
     return (dispatch, getState) => {  
         const state = getState();
         let editor, text;
-        if (!state.scene.settings.viewOnly) { // Map props to new reducer
+        if (!state.scene.settings.viewOnly) { // Map state to new reducer
             //If in editor mode, gets text directly from editor
             editor = window.ace.edit("ace-editor");
             text = editor.getSession().getValue();
@@ -98,55 +100,55 @@ export function saveScene(newCollectionID = undefined) {
         } 
         console.log("Test", text, newCollectionID);
 
-        // if (this.props.user && this.props.user.uid && text) {
-        //     this.setState({ spinnerOpen: true });
-        let scene = document.querySelector("a-scene");
-        // Access the scene and screen shot, with perspective view in a lossy jpeg format
-        let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
+        console.log(state);
+        if (state.user.user && state.user.user.uid && text) {
+        //     setState({ spinnerOpen: true });
+            let scene = document.querySelector("a-scene");
+            // Access the scene and screen shot, with perspective view in a lossy jpeg format
+            let img = scene.components.screenshot.getCanvas("perspective").toDataURL("image/jpeg", 0.1);
 
-        //     let newScene = {
-        //         name: (this.props.scene.name ? this.props.scene.name : "Untitled Scene"),
-        //         desc: this.props.scene.desc,
-        //         code: text,
-        //         uid: this.props.user.uid,
-        //         settings: {
-        //             ...this.props.scene.settings,
-        //             collectionID: newCollectionID || this.props.scene.settings.collectionID
-        //         },
-        //         updateTime: Date.now(),
-        //         createTime: (this.props.scene.createTime ? this.props.scene.createTime : Date.now())
-        //     };
+            let newScene = {
+                name: (state.scene.name ? state.scene.name : "Untitled Scene"),
+                desc: state.scene.desc,
+                code: text,
+                uid: state.user.user.uid,
+                settings: {
+                    ...state.scene.settings,
+                    collectionID: newCollectionID || state.scene.settings.collectionID
+                },
+                updateTime: Date.now(),
+                createTime: (state.scene.createTime ? state.scene.createTime : Date.now())
+            };
 
-        //     save(this.props.user.uid, newScene, img, this.props.projectId).then((projectId) => {
-        //         if (!projectId) {
-        //             console.error("Could not save the scene");
-        //         }
+            save(state.user.user.uid, newScene, img, oldProjectId).then((projectId) => {
+                if (!projectId) {
+                    console.error("Could not save the scene");
+                }
+                updateSavedText(text);
+                // If we have a new projectId reload page with it
+                if (projectId !== oldProjectId) {
+                    // this.setState({ spinnerOpen: false });
+                    window.location.assign(`${window.origin}/scene/${projectId}`);
+                    asyncUserProj(state.user.user.uid);
+                }
+                if (!state.viewOnly) {
+                    refresh(text, state.user.user ? state.user.user.uid : "anon");
+                }
+                // this.setState({ spinnerOpen: false, saveOpen: false });
+                // state.socket.emit("save");
+                return {};
+            });
+        } else if (!text) {
+            alert("There is no code to save for this scene. Try adding some in the editor!");
+        } else {
+            // TODO: Don't use alert
+            alert("We were unable to save your project. Are you currently logged in?");
+        }
 
-        //         this.props.actions.updateSavedText(text);
-        //         // If we have a new projectId reload page with it
-        //         if (projectId !== this.props.projectId) {
-        //             this.setState({ spinnerOpen: false });
-        //             window.location.assign(`${window.origin}/scene/${projectId}`);
-        //             this.props.projectActions.asyncUserProj(this.props.user.uid);
-        //         }
-        //         if (!this.state.viewOnly) {
-        //             this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
-        //         }
-        //         this.setState({ spinnerOpen: false, saveOpen: false });
-        //         this.state.socket.emit("save");
-        //         return true;
-        //     });
-        // } else if (!text) {
-        //     alert("There is no code to save for this scene. Try adding some in the editor!");
-        // } else {
-        //     // TODO: Don't use alert
-        //     alert("We were unable to save your project. Are you currently logged in?");
+        // if (!state.viewOnly) {
+        //     state.actions.refresh(text, state.user ? state.user.uid : "anon");
         // }
-
-        // if (!this.state.viewOnly) {
-        //     this.props.actions.refresh(text, this.props.user ? this.props.user.uid : "anon");
-        // }
-        // this.setState({ savedSettings: this.buildSettingsArr() });
+        // setState({ savedSettings: buildSettingsArr() });
     };
 }
 

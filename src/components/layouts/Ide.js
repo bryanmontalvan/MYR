@@ -44,7 +44,7 @@ export const Ide = ({ editor, editorActions, user, authActions, scene, sceneActi
                     :
                     <>
                         <div id="interface" className="col-12 col-md-4" >
-                            <Editor refresh={editorActions.refresh} saveScene={editorActions.saveScene} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText} />
+                            <Editor refresh={editorActions.refresh} saveScene={editorActions.saveScene} render={editorActions.render} text={editor.text} user={user} savedText={editor.savedText} projectId={match.params.id} />
                         </div>
                         <div id="scene" className="col-12 col-md-8" >
                             <View objects={editor.objects} sceneConfig={scene} assets={editor.assets} />
