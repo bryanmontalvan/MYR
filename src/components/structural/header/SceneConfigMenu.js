@@ -509,7 +509,7 @@ class ConfigModal extends Component {
                 }} >
                 {
                     !this.props.settings.darkMode
-                        ? <Icon className="material-icons">brightness4</Icon>
+                        ? <Icon className="material-icons">light_mode</Icon>
                         : <Icon className="material-icons">dark_mode</Icon>
                 }
                  Dark Mode
