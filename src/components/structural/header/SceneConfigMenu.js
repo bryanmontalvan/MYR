@@ -349,7 +349,10 @@ class ConfigModal extends Component {
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                }}
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleCastShadow();
@@ -370,7 +373,10 @@ class ConfigModal extends Component {
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                }}
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleLightIndicator();
@@ -392,9 +398,13 @@ class ConfigModal extends Component {
     floorToggle = () => {
         let style = this.props.scene.settings.showFloor ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
+
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                }}
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleFloor();  
@@ -498,7 +508,7 @@ class ConfigModal extends Component {
     };
 
     updateDarkMode = () => {
-        let style = this.props.settings.darkMode ? btnStyle.on : btnStyle.off;
+        let style = this.props.userSettings.darkMode ? btnStyle.on : btnStyle.off;
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
@@ -508,7 +518,7 @@ class ConfigModal extends Component {
                     this.props.userActions.toggleDarkMode();
                 }} >
                 {
-                    !this.props.settings.darkMode
+                    !this.props.userSettings.darkMode
                         ? <Icon className="material-icons">light_mode</Icon>
                         : <Icon className="material-icons">dark_mode</Icon>
                 }
@@ -552,6 +562,7 @@ class ConfigModal extends Component {
     render() {
         const { classes } = this.props;
         let isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
+        const top = 50, left = 50;
         return (
             <div>
                 {!isDisabled ?
@@ -572,7 +583,15 @@ class ConfigModal extends Component {
                             aria-describedby="simple-modal-description"
                             open={this.state.open}
                             onClose={this.handleClose} >
-                            <div style={getModalStyle()} className={classes.paper}>
+                            <div style={{
+                                top: `${top}%`,
+                                left: `${left}%`,
+                                transform: `translate(-${top}%, -${left}%)`,
+                                maxWidth: "90%",
+                                minHeight: 400,
+                                background: this.props.userSettings.darkMode ? "#272822" : "white",
+                                color: this.props.userSettings.darkMode ? "white" : "black"
+                            }} className={classes.paper}>
                                 <ButtonBase
                                     style={{ position: "absolute", right: 15, top: 15 }}
                                     onClick={() => this.handleClose()} >

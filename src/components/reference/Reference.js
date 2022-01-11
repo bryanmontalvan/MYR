@@ -25,10 +25,25 @@ const exitBtnStyle = {
     top: 0,
     right: 10,
 };
+
+const exitBtnStyleDark = {
+    position: "absolute",
+    top: 0,
+    right: 10,
+    color: "white"
+};
+
 const newTabStyle = {
     position: "fixed",
     top: 0,
     right: 50,
+};
+
+const newTabStyleDark = {
+    position: "fixed",
+    top: 0,
+    right: 50,
+    color: "white"
 };
 
 const assetReferenceBtn = {
@@ -36,6 +51,19 @@ const assetReferenceBtn = {
     top: 0,
     right: 95,
 };
+
+const assetReferenceBtnDark = {
+    position: "fixed",
+    top: 0,
+    right: 95,
+    color: "white"
+};
+// TD lightMode and darkMode
+const lightText = {color: "black"};
+const darkText = {color: "white"};
+const functionTextLight = {color: "#266d90"};
+const functionTextDark = { color: "#3ea4d6"};
+
 export default class Reference extends React.Component {
 
     constructor(props) {
@@ -88,6 +116,7 @@ export default class Reference extends React.Component {
             let link = "/reference/" + example;
             return (
                 <IconButton
+                    style={this.props.userSettings.darkMode ? darkText : lightText}
                     href={link}
                     target="_blank"
                     className="material-icons">
@@ -105,17 +134,17 @@ export default class Reference extends React.Component {
             <Table  >
                 <TableHead >
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Description</TableCell>
-                        <TableCell className='refExample'>Example</TableCell>
+                        <TableCell style={this.props.userSettings.darkMode ? functionTextDark : lightText}>Name</TableCell>
+                        <TableCell style={this.props.userSettings.darkMode ? darkText : lightText}>Description</TableCell>
+                        <TableCell className='refExample' style={this.props.userSettings.darkMode ? darkText : lightText}>Example</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody  >
+                <TableBody >
                     {this.tableData[category].map((row, index) => (
-                        <TableRow key={index}>
-                            <TableCell >{this.nameHelper(row.name, row.parameters)}</TableCell>
-                            <TableCell >{row.description}</TableCell>
-                            <TableCell >{this.exampleHelper(row.example)}</TableCell>
+                        <TableRow key={index} >
+                            <TableCell style={this.props.userSettings.darkMode ? functionTextDark : functionTextLight}>{this.nameHelper(row.name, row.parameters)}</TableCell>
+                            <TableCell style={this.props.userSettings.darkMode ? darkText : lightText}>{row.description}</TableCell>
+                            <TableCell  >{this.exampleHelper(row.example)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -127,6 +156,12 @@ export default class Reference extends React.Component {
         const style = {
             margin: 2,
             color: "#fff",
+        };
+        const tableDarkStyle = {
+            marginTop: 0,
+            overflow: "scroll",
+            background: this.props.userSettings.darkMode ? "#222" : "white",
+            // color: this.props.userSettings.darkMode ? "white" : "black"
         };
         const isDisabled = this.props.layoutType === layoutTypes.REFERENCE;
         return (
@@ -146,16 +181,22 @@ export default class Reference extends React.Component {
                         <Drawer
                             style={{ position: "relative", zIndex: 100 }}
                             anchor="right"
-                            id="reference-drawer"
+                            id={this.props.userSettings.darkMode ? "reference-drawer-dark" : "reference-drawer"}
                             variant="persistent"
                             className={!this.props.referenceOpen ? "d-none" : ""}
                             open={this.props.referenceOpen}>
 
                             <div>
-                                <h3 className="border-bottom" style={{ padding: 10, fontWeight: 400 }}>MYR API - Reference</h3>
+                                <h3 className="border-bottom" style={{ 
+                                    padding: 10, 
+                                    fontWeight: 400, 
+                                    background: this.props.userSettings.darkMode ? "#272822" : "white",
+                                    color: this.props.userSettings.darkMode ? "white" : "black"
+                                }
+                                }>MYR API - Reference</h3>
                                 <IconButton
                                     color="default"
-                                    style={exitBtnStyle}
+                                    style={this.props.userSettings.darkMode ? exitBtnStyleDark : exitBtnStyle}
                                     onClick={() => {
                                         this.props.handleReferenceToggle();
                                         this.setState({ value: "a" });
@@ -165,14 +206,14 @@ export default class Reference extends React.Component {
                                 <IconButton
                                     title="Open reference page &#013;(in a new tab)"
                                     color="default"
-                                    style={newTabStyle}
+                                    style={this.props.userSettings.darkMode ? newTabStyleDark : newTabStyle}
                                     onClick={this.handleOpen}>
                                     <Icon className="material-icons">menu_book</Icon>
                                 </IconButton>
                                 <IconButton
                                     title="Open asset reference page &#013;(in a new tab)"
                                     color="default"
-                                    style={assetReferenceBtn}
+                                    style={this.props.userSettings.darkMode ? assetReferenceBtnDark : assetReferenceBtn}
                                     onClick={this.assetHandleOpen}>
                                     <Icon className="material-icons-outlined">settings_system_daydream</Icon>
                                 </IconButton>
@@ -183,7 +224,12 @@ export default class Reference extends React.Component {
                                     id="reference-tabs"
                                     value={this.state.value}
                                     onChange={this.handleChange}
-                                    variant="fullWidth">
+                                    variant="fullWidth"
+                                    style={{
+                                        background: this.props.userSettings.darkMode ? "#272822" : "white",
+                                        color: this.props.userSettings.darkMode ? "white" : "black"
+                                    }} //Changes for darkMode (Tab)
+                                > 
                                     <Tab
                                         icon={<Icon className="material-icons geometry">category</Icon>}
                                         label={
@@ -242,8 +288,12 @@ export default class Reference extends React.Component {
                                 </Tabs>
                             </div>
 
-                            {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em" }}>
-                                <p style={{ fontSize: "80%" }}> Key: <span className="array">array </span>
+                            {<div style={{ margin: 7, overflow: "hidden", minHeight: "2em",
+                                background: this.props.userSettings.darkMode ? "#222" : "white",
+                                color: this.props.userSettings.darkMode ? "white" : "black" }}>
+                                <p style={{ 
+                                    fontSize: "80%", 
+                                }}> Key: <span className="array">array </span>
                                     <span className="bool">bool </span>
                                     <span className="number">number </span>
                                     <span className="string">string </span>
@@ -251,23 +301,23 @@ export default class Reference extends React.Component {
                                     <span className="data">data</span></p>
                             </div>}
                             {this.state.value === "a" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                <div style={tableDarkStyle}>
                                     {this.TableEx("geometry")}
                                 </div>}
                             {this.state.value === "b" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                <div style={tableDarkStyle}>
                                     {this.TableEx("transformations")}
                                 </div>}
                             {this.state.value === "c" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                <div style={tableDarkStyle}>
                                     {this.TableEx("animations")}
                                 </div>}
                             {this.state.value === "d" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                <div style={tableDarkStyle}>
                                     {this.TableEx("groups")}
                                 </div>}
                             {this.state.value === "e" &&
-                                <div style={{ marginTop: 0, overflow: "scroll" }}>
+                                <div style={tableDarkStyle}>
                                     {this.TableEx("lights")}
                                 </div>}
                         </Drawer>

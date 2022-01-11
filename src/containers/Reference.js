@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import ReferencePage from "../components/layouts/Reference.js";
+
 import * as Actions from "../actions";
 
 import { bindActionCreators } from "redux";
@@ -21,6 +22,7 @@ ReferencePage.propTypes = {
 const mapStateToProps = state => ({
     editor: state.editor,
     user: state.user.user,
+    userSettings: state.user.settings,
     scene: state.scene,
     projects: state.project,
     courses: state.courses,
@@ -37,7 +39,8 @@ const mapDispatchToProps = dispatch => ({
     sceneActions: bindActionCreators(Actions.SceneActions, dispatch),
     projectActions: bindActionCreators(Actions.ProjectActions, dispatch),
     courseActions: bindActionCreators(Actions.CourseActions, dispatch),
-    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch)
+    collectionActions: bindActionCreators(Actions.CollectionActions, dispatch),
+    userActions: bindActionCreators(Actions.UserActions, dispatch),
 });
 
 /**

@@ -5,13 +5,15 @@ import ReferencePage from "../reference/ReferencePage";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Reference = ({ editor, editorActions, user, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
+export const Reference = ({ editor, editorActions, user, userSettings, userActions, authActions, scene, sceneActions, projectActions, courseActions, projects, courses, match, collectionActions, collections }) => (
     <div className="App">
         <Header
             logging={authActions}
             sceneActions={sceneActions}
             actions={editorActions}
             user={user}
+            userActions={userActions}
+            settings={userSettings}
             scene={scene}
             text={editor.text}
             message={editor.message}

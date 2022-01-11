@@ -231,12 +231,30 @@ div.side-drawer>div {
     overflow: visible;
 }
 
+div.side-drawer-dark>div{
+    padding: 10px;
+    width: 85%;
+    padding-top: 3em;
+    overflow: visible;
+    color: white;
+    background: #272822;
+}
+
 @media (min-width: 450px) {
     div.side-drawer>div {
         padding: 10px;
         width: 400px;
         padding-top: 3em;
         overflow: visible;
+    }
+    
+    div.side-drawer-dark>div{
+        padding: 10px;
+        width: 400px;
+        padding-top: 3em;
+        overflow: visible;
+        color: white;
+        background: #272822;
     }
     .sidebar-btn {
         margin-bottom: 10px !important;
@@ -251,6 +269,15 @@ div.side-drawer>div {
         width: 400px;
         padding-top: 3em;
         overflow: visible;
+    }
+
+    div.side-drawer-dark>div {
+        padding: 10px;
+        width: 400px;
+        padding-top: 3em;
+        overflow: visible;
+        color: white;
+        background: #272822;
     }
 }
 
@@ -316,6 +343,11 @@ span.user-name {
 div#reference-drawer>div {
     width: 67%;
 }
+div#reference-drawer-dark>div{
+    width: 67%;
+    background: #222;
+}
+
 .refExample {
     margin-right: 10px;
 }
@@ -434,4 +466,8 @@ footer a:hover {
         bottom: 4px;
         right: 18px;
     }
+}
+
+::-webkit-input-placeholder{
+    color: blue
 }

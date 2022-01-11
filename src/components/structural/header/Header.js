@@ -28,11 +28,24 @@ import {
     MuiThemeProvider
 } from "@material-ui/core";
 import { save } from "../../../actions/projectActions.js";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles(() => ({
+    input: {
+        color: "white"
+    }
+}));
 const exitBtnStyle = {
     position: "absolute",
     top: 0,
     right: 0,
+};
+
+const exitBtnStyleDark = {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    color: "white"
 };
 
 class Header extends Component {
@@ -319,6 +332,7 @@ class Header extends Component {
      * This function produces the form for inputting the scene's name and description
      */
     sceneName = () => {
+        const classes = useStyles();
         let sceneName = this.props.scene.name;
         let sceneDesc = this.props.scene.desc;
         return (
@@ -327,9 +341,11 @@ class Header extends Component {
                     value={sceneName ? sceneName : ""}
                     label="Scene Name"
                     placeholder={sceneName ? sceneName : "Untitled Scene"}
+                    InputProps={{ className: classes.input}}
                     onBlur={this.handleNameChange}
                     onChange={this.handleNameChange} />
                 <TextField
+                    InputProps={{ className: classes.input }}
                     value={sceneDesc ? sceneDesc : ""}
                     onChange={this.handleDescChange}
                     onBlur={this.handleDescChange}
@@ -475,12 +491,12 @@ class Header extends Component {
         return (
             <Drawer
                 variant="persistent"
-                className="side-drawer"
+                className={this.props.settings.darkMode ? "side-drawer-dark" : "side-drawer"}
                 open={this.state.saveOpen}
                 onClose={this.handleSaveToggle} >
                 <IconButton variant="contained"
                     color="default"
-                    style={exitBtnStyle}
+                    style={this.props.settings.darkMode ? exitBtnStyleDark : exitBtnStyle}
                     onClick={this.handleSaveToggle}>
                     <Icon className="material-icons">close</Icon>
                 </IconButton>
@@ -538,6 +554,8 @@ class Header extends Component {
     loadCollection = () => {
         return (
             <Collection
+                userSettings={this.props.settings}
+                userActions={this.props.userActions}
                 openCollection={this.props.collection}
                 collections={this.props.collections}
                 collectionActions={this.props.collectionActions}
@@ -630,7 +648,7 @@ class Header extends Component {
         return (
             <header className="App-header align-items-center ">
                 <div className="col-9 d-flex justify-content-start" style={{ paddingLeft: 0 }}>
-                    <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} >
+                    <Sidebar scene={this.props.scene} nameScene={this.props.sceneActions.nameScene} userSettings={this.props.settings}>
                         <Button
                             variant="contained"
                             onClick={() => { window.location.assign(window.origin); }}
@@ -697,7 +715,7 @@ class Header extends Component {
                                     this.clear();
                                     this.postpone(this.handleRender);
                                 }}
-                                color="primary"
+                                color="secondary"
                                 className="header-btn"
                                 style={referenceMode ? style.play_disabled : style.play}
                                 disabled={referenceMode}>
@@ -705,6 +723,8 @@ class Header extends Component {
                             </Button>
                         </Tooltip>
                         <WelcomeScreen
+                            userSettings={this.props.settings}
+                            userActions={this.props.userActions}
                             handleWelcomeToggle={this.handleWelcomeToggle}
                             welcomeOpen={this.state.welcomeOpen}
                             deleteFunc={this.props.projectActions.deleteProj}
@@ -746,6 +766,8 @@ class Header extends Component {
                         </IconButton>
                     </Tooltip>
                     <ProjectView
+                        userSettings={this.props.settings}
+                        userActions={this.props.userActions}
                         deleteFunc={this.props.projectActions.deleteProj}
                         userProjs={this.props.projects.userProjs}
                         exampleProjs={this.props.projects.exampleProjs}
@@ -766,13 +788,15 @@ class Header extends Component {
                     <Reference
                         layoutType={this.props.layoutType}
                         referenceOpen={this.state.referenceOpen}
-                        handleReferenceToggle={this.handleReferenceToggle} />
+                        handleReferenceToggle={this.handleReferenceToggle} 
+                        userSettings={this.props.settings}
+                    />
                     <SceneConfigMenu
                         scene={this.props.scene}
                         sceneActions={this.props.sceneActions}
                         collectionActions={this.props.collectionActions}
                         user={this.props.user}
-                        settings={this.props.settings}
+                        userSettings={this.props.settings}
                         userActions={this.props.userActions}
                         handleRender={this.handleRender}
                         handleSave={this.handleSave}

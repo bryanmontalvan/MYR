@@ -28,9 +28,24 @@ function getOuterModalStyle() {
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
         maxWidth: "90%",
-        maxHeight: "90%"
+        maxHeight: "90%",
     };
 }
+
+// function getOuterModalStyleDark(){
+//     const top = 50;
+//     const left = 50;
+
+//     return {
+//         top: `${top}%`,
+//         left: `${left}%`,
+//         transform: `translate(-${top}%, -${left}%)`,
+//         maxWidth: "90%",
+//         maxHeight: "90%",
+//         background: "#272822",
+//         color: "white"
+//     };
+// }
 
 function getModalStyle() {
     const top = 50;
@@ -42,6 +57,19 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
     };
 }
+
+// function getModalStyleDark(){
+//     const top = 50;
+//     const left = 50;
+
+//     return {
+//         top: `${top}%`,
+//         left: `${left}%`,
+//         transform: `translate(-${top}%, -${left}%)`,
+//         background: "#272822",
+//         color: "white"
+//     };
+// }
 
 function getInfoModalStyle() {
     const top = 50;
@@ -372,6 +400,7 @@ class Project extends React.Component {
             position: "fixed",
             top: 10,
             right: "46%",
+            // color: this.props.userSettings.darkMode ? "white" : "black"
         };
         const style = {
             default: {

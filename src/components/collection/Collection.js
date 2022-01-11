@@ -23,7 +23,20 @@ function getModalStyle() {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
-        maxWidth: "90%"
+        maxWidth: "90%",
+    };
+}
+
+function getModalStyleDark(){
+    const top = 50;
+    const left = 50;
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        maxWidth: "90%",
+        background: "#272822",
+        color: "white"
     };
 }
 
@@ -220,7 +233,7 @@ class CollectionModal extends Component {
                     aria-describedby="simple-modal-description"
                     open={this.props.open}
                     onClose={this.props.handleCollectionToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
+                    <div style={this.props.userSettings.darkMode ? getModalStyleDark() : getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
                             onClick={this.props.handleCollectionToggle} >
@@ -264,7 +277,7 @@ class CollectionModal extends Component {
                     aria-describedby="simple-modal-description"
                     open={this.state.addOpen}
                     onClose={this.handleAddClassToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
+                    <div style={this.props.userSettings.darkMode ? getModalStyleDark() : getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
                             onClick={() => this.handleAddClassToggle()} >
@@ -278,7 +291,7 @@ class CollectionModal extends Component {
                     aria-describedby="simple-modal-description"
                     open={this.state.openOpen}
                     onClose={this.handleOpenClassToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
+                    <div style={this.props.userSettings.darkMode ? getModalStyleDark() : getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
                             onClick={() => this.handleOpenClassToggle()} >
@@ -292,7 +305,7 @@ class CollectionModal extends Component {
                     aria-describedby="simple-modal-description"
                     open={this.state.deleteOpen}
                     onClose={this.handleDeleteClassToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
+                    <div style={this.props.userSettings.darkMode ? getModalStyleDark() : getModalStyle()} className={classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
                             onClick={() => this.handleDeleteClassToggle()} >

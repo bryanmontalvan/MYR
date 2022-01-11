@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Drawer, Button, Icon, IconButton } from "@material-ui/core";
-
 /**
  * The side bar provides a drawer with options to make changes to the scene.
  */
@@ -55,10 +54,10 @@ class Sidebar extends Component {
                     <Icon style={{ fontSize: 32 }}>menu</Icon>
                 </Button>
                 <Drawer
-                    className="side-drawer"
-                    style={{ zIndex: 1000 }}
+                    style={{ zIndex: 1000}}
                     open={this.state.open}
                     anchor="left"
+                    className={this.props.userSettings.darkMode ? "side-drawer-dark" : "side-drawer"}
                     onClick={this.handleToggle}
                     onClose={this.handleToggle} >
                     <IconButton
