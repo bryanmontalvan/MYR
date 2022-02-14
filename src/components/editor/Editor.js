@@ -20,7 +20,6 @@ class Editor extends Component {
         darkModeTheme: "github"
     }
 
-
     componentWillUnmount() {
         // Updates state in reducer before closing editor
         const text = window.ace.edit("ace-editor").getSession().getValue();

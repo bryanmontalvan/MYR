@@ -7,7 +7,7 @@ import View from "../structural/View";
 
 import * as layoutTypes from "../../constants/LayoutTypes.js";
 
-export const Guided = ({ editor, user, usersettings, userActions, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, collectionActions, collections }) => (
+export const Guided = ({ editor, user, userSettings, userActions, scene, editorActions, authActions, projectActions, projects, courseActions, courses, course, match, sceneActions, collectionActions, collections }) => (
     <div className="App">
         <Header
             viewOnly={scene.settings.viewOnly}
@@ -43,7 +43,7 @@ export const Guided = ({ editor, user, usersettings, userActions, scene, editorA
                         <div id="interface" className="col-12 col-md-4">
                             <Course lesson={courses.currentLesson} courses={courses} course={course} courseName={match.params.shortname} actions={editorActions} courseActions={courseActions} savedText={editor.savedText}/>
                             <div className='guided'>
-                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={usersettings} savedText={editor.savedText} />
+                                <Editor refresh={editorActions.refresh} render={editorActions.render} text={editor.text} user={user} settings={userSettings} savedText={editor.savedText} />
                             </div>
                         </div>
                         <div id="scene" className="col-12 col-md-8">
