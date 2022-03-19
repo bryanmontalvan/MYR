@@ -807,7 +807,8 @@ class Header extends Component {
                     <CourseSelect
                         coursesOpen={this.state.coursesOpen}
                         handleCoursesToggle={this.handleCoursesToggle}
-                        courses={this.props.courses.courses} />
+                        courses={this.props.courses.courses}
+                        userSettings={this.props.settings} />
                     <this.loginBtn />
                 </div>
                 <this.saveDrawer />

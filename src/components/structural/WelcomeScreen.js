@@ -228,6 +228,7 @@ class Welcome extends React.Component {
                     tab={this.state.projectsTab}
                     hideTooltip={true} />
                 <CourseSelect
+                    userSettings={this.props.userSettings}
                     courses={this.props.courses}
                     coursesOpen={this.state.coursesOpen}
                     handleCoursesToggle={this.handleCoursesToggle}

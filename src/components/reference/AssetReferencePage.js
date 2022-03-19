@@ -33,13 +33,16 @@ export default class AssetReference extends React.Component {
 
     render() {
         document.title = "Asset | MYR";
+        // console.warn(this.props);
         return (
             <div id="modelReference-page">
                 <Tabs
                     id="modelReference-tabs"
                     variant="fullWidth"
                     value={this.state.value}
-                    onChange={this.handleChange} >
+                    onChange={this.handleChange} 
+                    style={{background: this.props.settings.darkMode ? "#272822" : "white" }}
+                >
                     <Tab
                         icon={<Icon className="material-icons model">model</Icon>}
                         label={

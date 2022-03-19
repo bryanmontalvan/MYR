@@ -286,7 +286,14 @@ class ConfigModal extends Component {
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: 
+                    this.props.scene.settings.viewOnly 
+                        ? this.props.userSettings.darkMode 
+                            ?  "#3f51b5" : "black"
+                        : "#737373" 
+                }}
                 onClick={() => {
                     return this.props.sceneActions.changeView();
                 }
@@ -308,7 +315,14 @@ class ConfigModal extends Component {
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: 
+                        this.props.scene.settings.showCoordHelper 
+                            ? this.props.userSettings.darkMode 
+                                ?  "#3f51b5" : "black"
+                            : "#737373" 
+                }}
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleCoordSky();
@@ -328,7 +342,14 @@ class ConfigModal extends Component {
         style = { ...btnStyle.base, ...style };
         return (
             <ButtonBase
-                style={style}
+                style={{
+                    ...style,
+                    color: 
+                        this.props.scene.settings.defaultLight 
+                            ? this.props.userSettings.darkMode 
+                                ?  "#3f51b5" : "black"
+                            : "#737373" 
+                }}
                 onClick={() => {
                     this.props.handleRender();
                     this.props.sceneActions.toggleDefaultLight();
@@ -351,7 +372,13 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={{
                     ...style,
-                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                    color: 
+                        this.props.scene.settings.castShadow 
+                            // If castShadow is on
+                            ? this.props.userSettings.darkMode 
+                                ?  "#3f51b5" : "black"
+                            // if castShadow is off
+                            : "#737373" 
                 }}
                 onClick={() => {
                     this.props.handleRender();
@@ -375,7 +402,11 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={{
                     ...style,
-                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                    color: 
+                        this.props.scene.settings.lightIndicator 
+                            ? this.props.userSettings.darkMode 
+                                ?  "#3f51b5" : "black"
+                            : "#737373" 
                 }}
                 onClick={() => {
                     this.props.handleRender();
@@ -403,7 +434,11 @@ class ConfigModal extends Component {
             <ButtonBase
                 style={{
                     ...style,
-                    color: this.props.userSettings.darkMode ? "#737373" : "black"
+                    color: 
+                    this.props.scene.settings.showFloor 
+                        ? this.props.userSettings.darkMode 
+                            ?  "#3f51b5" : "black"
+                        : "#737373" 
                 }}
                 onClick={() => {
                     this.props.handleRender();

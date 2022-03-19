@@ -43,6 +43,15 @@ const modelStyles = theme => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(4),
     },
+    darkPaper: {
+        position: "absolute",
+        width: theme.spacing(100),
+        maxWidth: "90%",
+        color: "white",
+        backgroundColor: "#272822",
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(4),
+    },
     button: {
         margin: theme.spacing(1),
     }
@@ -116,7 +125,8 @@ class CourseSelectModal extends Component {
                     aria-describedby="simple-modal-description"
                     open={this.props.coursesOpen}
                     onClose={this.props.handleCoursesToggle} >
-                    <div style={getModalStyle()} className={classes.paper}>
+    
+                    <div style={getModalStyle()} className={this.props.userSettings.darkMode ? classes.darkPaper : classes.paper}>
                         <ButtonBase
                             style={{ position: "absolute", right: 15, top: 15 }}
                             onClick={this.props.handleCoursesToggle} >

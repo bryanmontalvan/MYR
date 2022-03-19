@@ -28,7 +28,7 @@ export const AssetReference = ({ editor, editorActions, user, userSettings, user
             layoutType={layoutTypes.REFERENCE}
         />
         <div className="row no-gutters">
-            <AssetReferencePage />
+            <AssetReferencePage user={user} settings={userSettings}/>
         </div>
         <Footer />
     </div>
