@@ -32,6 +32,12 @@
     width: 100%;
 }
 
+.neverAgainDark-btn{
+    font-size: 10pt !important;
+    width: 100%;
+    color: white;
+}
+
 #cookie-consent {
     font-size: 10pt !important;
     margin-bottom: -0.5rem;

@@ -41,6 +41,15 @@ const modelStyles = theme => ({
         padding: theme.spacing(4),
         "overflow-y": "auto"
     },
+    outerDark: {
+        position: "absolute",
+        width: theme.spacing(150),
+        backgroundColor: "#272822",
+        color: "white",
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(4),
+        "overflow-y": "auto"
+    },
     paper: {
         position: "absolute",
         width: theme.spacing(50),
@@ -121,7 +130,7 @@ class Welcome extends React.Component {
         return (
             <Button
                 onClick={this.neverAgainCookie}
-                className="neverAgain-btn">
+                className={this.props.userSettings.darkMode ? "neverAgainDark-btn" : "neverAgain-btn"}>
                 Don't show again
             </Button >
         );
@@ -254,7 +263,7 @@ class Welcome extends React.Component {
                         aria-describedby="simple-modal-description"
                         open={this.props.welcomeOpen}
                         onClose={this.handleClose}>
-                        <div style={getOuterModalStyle()} className={classes.outer}>
+                        <div style={getOuterModalStyle()} className={this.props.userSettings.darkMode ? classes.outerDark : classes.outer}>
                             <IconButton
                                 color="default"
                                 style={exitBtnStyle}
@@ -278,13 +287,15 @@ class Welcome extends React.Component {
                                     <WelcomeScene />
                                 </div>
                             </div>
-                            <hr />
+                            <hr/>
                             <this.helperButtons />
                             <this.handleModals />
-                            <hr />
+                            <hr   style={{
+                                borderTop: this.props.userSettings.darkMode ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.1)"}}/>
                             <this.neverAgain />
                             <Hidden smDown>
-                                <hr />
+                                <hr style={{
+                                    borderTop: this.props.userSettings.darkMode ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(0, 0, 0, 0.1)"}}/>
                                 <this.cookieMessage />
                             </Hidden>
                         </div>
