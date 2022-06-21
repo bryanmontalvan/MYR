@@ -30,6 +30,10 @@ const model = [
         name: "duck",
         model: "duck",
     },
+    {
+        name: "boar",
+        model: "boar",
+    },
 ];
  
 export default model;
